@@ -16,7 +16,7 @@
                 </a>
             </li>
             <li class="nav-item menu-open">
-                <a href="#" class="nav-link active">
+                <a href="#" class="nav-link">
                     <i class="fas fa-tasks"></i>
                     <p>
                         Manage Pharmacy

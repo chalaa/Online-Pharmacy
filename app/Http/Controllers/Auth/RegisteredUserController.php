@@ -34,16 +34,59 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        if($request->role === "admin"){
+            $user = User::create([
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'is_admin' => true,
+                'is_pharmacy' => false,
+                'is_customer' => false,
+                'is_deleted' => false,
+                'is_approved' => true,
+            ]);
+        }
+        elseif($request->role === "pharmacy"){
+            $user = User::create([
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'is_admin' => false,
+                'is_pharmacy' => true,
+                'is_customer' => false,
+                'is_deleted' => false,
+                'is_approved' => false,
+            ]);
+        }
+        elseif($request->role === "customer"){
+            $user = User::create([
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'is_admin' => false,
+                'is_pharmacy' => false,
+                'is_customer' => true,
+                'is_deleted' => false,
+                'is_approved' => true,
+            ]);
+        }
+        else{
+            $user = User::create([
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'is_admin' => false,
+                'is_pharmacy' => false,
+                'is_customer' => false,
+                'is_deleted' => false,
+                'is_approved' => false,
+            ]);
+        }
 
         event(new Registered($user));
 
