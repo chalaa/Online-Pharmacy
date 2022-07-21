@@ -21,7 +21,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'username',
         'email',
         'password',
-        'is_deleted',
         'is_approved',
         'is_admin',
         'is_pharmacy',
@@ -46,4 +45,29 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function admin()
+    {
+        return $this->hasOne(Admin::class , 'user_id' , 'id');
+    }
+    
+    public function pharmacy()
+    {
+        return $this->hasOne(Pharmacy::class , 'user_id' , 'id');
+    }
+
+    public function customer()
+    {
+        return $this->hasOne(Customer::class , 'user_id' , 'id');
+    }
+
+    public function sender()
+    {
+        return $this->hasMany(ChatMessage::class , 'sender_id' , 'id');
+    }
+
+    public function receiver()
+    {
+        return $this->hasMany(ChatMessage::class , 'reciver_id' , 'id');
+    }
 }

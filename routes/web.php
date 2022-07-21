@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
 
-Route::get('/home', function () {
-    return view('index');
-})->middleware(['auth','verified'])->name('home');
-
+Route::middleware(['auth','verified'])->group(function () {
+    Route::get('/home', [UserController::class, 'index'])->name('user-home');
+   
+});
 require __DIR__.'/auth.php';
