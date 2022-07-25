@@ -112,62 +112,49 @@
                     </div>
                 </div>
             </nav>
-            <aside class="main-sidebar bg-dark">
-                <div class="sidebar pt-3">
-                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                        <h1 class="h2"><a href="{{ route('user-home') }}">Pharmacy page</a></h1>
+            <x-guest-layout>
+                <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+                    <div class="w-full sm:max-w-md px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+    
+                        <h2 class="mb-4 h2" > Add Pharmacy Information</h2>
+                        <!-- Validation Errors -->
+                        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+    
+                        <form method="POST" action="{{route('pharmacy-store')}}">
+                            @csrf
+                            <!-- Name -->
+                            <div>
+                                <x-label for="pharmacyname" :value="__('Pharmacy Name')" />
+                
+                                <input type="text" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                 name="pharmacy_name" class="form-control" value= "{{old('pharmacy_name')}}" required>
+                            </div>
+                
+                            <!--  Address -->
+                            <div class="mt-4">
+                                <x-label for="pharmacyaddress" :value="__('Pharmacy Address')" />
+    
+                                <input type="text" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                 name="pharmacy_address" class="form-control" value= "{{old('pharmacy_address')}}" required>
+                            </div>
+                            
+                            <!-- phone number -->
+                            <div class="mt-4">
+                                <x-label for="phonenumber" :value="__('Phone Number')" />
+    
+                                <input type="text" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                 name="phone_number" class="form-control" value= "{{old('phone_number')}}" required>
+                            </div>
+                            <div class="flex items-center justify-end mt-4">
+                                <x-button class="ml-4">
+                                    {{ __('Add') }}
+                                </x-button>
+                            </div>
+                        </form>
                     </div>
-                    <!-- side bar menu -->
-                    <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item">
-                            <a href="{{ route('user-home') }}" class="nav-link active">
-                                <i class="fas fa-edit"></i>
-                                <p>
-                                    Dashboard
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-tasks"></i>
-                                <p>
-                                    Manage Drug
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('create-drug') }}" class="nav-link ">
-                                        <p>Add Drug</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('drug') }}" class="nav-link">
-                                        <p>View Drug</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('user-edit') }}" class="nav-link">
-                                <i class="fas fa-edit"></i>
-                                <p>
-                                    Update Account
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-edit"></i>
-                                <p>
-                                    Update Pharmacy Info
-                                </p>
-                            </a>
-                        </li>
-                    </ul>
                 </div>
-            </aside>
-            {{ $slot }}
+            </x-guest-layout>
+             
         </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DrugController extends Controller
 {
@@ -14,6 +16,7 @@ class DrugController extends Controller
     public function index()
     {
         //
+        return view('drug.index');
     }
 
     /**
@@ -21,9 +24,13 @@ class DrugController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(User $user)
     {
         //
+        if(!(Auth::user()->is_pharmacy == 1)){
+            abort(403, 'Unauthorized action.');
+        }
+        return view('drug.create', compact('user'));
     }
 
     /**

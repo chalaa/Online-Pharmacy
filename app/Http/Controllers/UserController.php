@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Rules\Password;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 class UserController extends Controller
 {
@@ -55,9 +60,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
         //
+        return view('user.edit', compact('user'));
     }
 
     /**
@@ -67,9 +73,20 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         //
+        $request->validate([
+            'username' => ['required', 'string', 'max:255'],
+            'email' => [ 'string', 'email', 'max:255',],
+            'password' => ['confirmed',],
+        ]);
+        $user->update([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        return redirect()->route('user-home');
     }
 
     /**

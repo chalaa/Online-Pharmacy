@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('pharmacies', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('admin_id')->unsigned();
+            $table->bigInteger('admin_id')->unsigned()->nullable();
             $table->string('pharmacy_name');
             $table->string('pharmacy_address');
             $table->string('pharmacy_phone_number')->unique();
