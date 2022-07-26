@@ -103,4 +103,51 @@ class PharmacyController extends Controller
     {
         //
     }
+
+    public function registerdPharmacy()
+    {
+        //
+        return view('admin.registered-pharmacy',[
+            'pharmacies' => User::all()->where('is_pharmacy', 1)->where('is_approved', 0),
+        ]);
+    }
+    public function approvedPharmacy()
+    {
+        //
+        return view('admin.approved-pharmacy', [
+            'pharmacies' => User::all()->where('is_pharmacy', 1)->where('is_approved', 1),
+        ]);
+    }
+
+    public function pharmacyDetail($id)
+    {
+        //
+        return view('admin.pharmacy-detail',[
+            'pharmacy' => User::find($id)
+        ]);
+    }
+
+    public function approvePharmacy ($id)
+    {
+        //
+        $pharmacy = User::find($id);
+        $pharmacy->is_approved = 1;
+        $pharmacy->save();
+        return redirect()->route('registered-pharmacy')->with('success', 'Pharmacy approved successfully');
+    }
+
+    public function deletePharmacy($id)
+    {
+        //
+        $pharmacy = User::find($id);
+        $pharmacy->delete();
+        return redirect()->route('approved-pharmacy')->with('success', 'Pharmacy deleted successfully');
+    }
+
+    public function deletedPharmacy(){
+    
+        //
+        return view('admin.deleted-pharmacy',
+        ['pharmacies'=>User::onlyTrashed()->where('is_pharmacy',1)->get()]);
+    }
 }

@@ -112,49 +112,64 @@
                     </div>
                 </div>
             </nav>
-            <x-guest-layout>
-                <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-                    <div class="w-full sm:max-w-md px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-    
-                        <h2 class="mb-4 h2" > Add Pharmacy Information</h2>
-                        <!-- Validation Errors -->
-                        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-    
-                        <form method="POST" action="{{route('pharmacy-store')}}">
-                            @csrf
-                            <!-- Name -->
-                            <div>
-                                <x-label for="pharmacyname" :value="__('Pharmacy Name')" />
-                
-                                <input type="text" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                 name="pharmacy_name" class="form-control" value= "{{old('pharmacy_name')}}" required>
-                            </div>
-                
-                            <!--  Address -->
-                            <div class="mt-4">
-                                <x-label for="pharmacyaddress" :value="__('Pharmacy Address')" />
-    
-                                <input type="text" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                 name="pharmacy_address" class="form-control" value= "{{old('pharmacy_address')}}" required>
-                            </div>
-                            
-                            <!-- phone number -->
-                            <div class="mt-4">
-                                <x-label for="phonenumber" :value="__('Phone Number')" />
-    
-                                <input type="text" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                 name="phone_number" class="form-control" value= "{{old('phone_number')}}" required>
-                            </div>
-                            <div class="flex items-center justify-end mt-4">
-                                <x-button class="ml-4">
-                                    {{ __('Add') }}
-                                </x-button>
-                            </div>
-                        </form>
+            <?php use App\Models\Pharmacy;?>
+            @if(Pharmacy::find(Auth::user()->pharmacy) == null)
+                <x-guest-layout>
+                    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+                        <div class="w-full sm:max-w-md px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+        
+                            <h2 class="mb-4 h2" > Add Pharmacy Information</h2>
+                            <!-- Validation Errors -->
+                            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        
+                            <form method="POST" action="{{route('pharmacy-store')}}">
+                                @csrf
+                                <!-- Name -->
+                                <div>
+                                    <x-label for="pharmacyname" :value="__('Pharmacy Name')" />
+                    
+                                    <input type="text" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    name="pharmacy_name" class="form-control" value= "{{old('pharmacy_name')}}" required>
+                                </div>
+                    
+                                <!--  Address -->
+                                <div class="mt-4">
+                                    <x-label for="pharmacyaddress" :value="__('Pharmacy Address')" />
+        
+                                    <input type="text" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    name="pharmacy_address" class="form-control" value= "{{old('pharmacy_address')}}" required>
+                                </div>
+                                
+                                <!-- phone number -->
+                                <div class="mt-4">
+                                    <x-label for="phonenumber" :value="__('Phone Number')" />
+        
+                                    <input type="text" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    name="phone_number" class="form-control" value= "{{old('phone_number')}}" required>
+                                </div>
+                                <div class="flex items-center justify-end mt-4">
+                                    <x-button class="ml-4">
+                                        {{ __('Add') }}
+                                    </x-button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
+                </x-guest-layout>
+            @else
+            <x-guest-layout>
+                <div class="min-h-screen flex flex-col sm:justify-center items-center sm:pt-0 bg-gray-100">
+                            <!-- Main content -->
+                    <section class="content" style="margin-top: -200px">
+                        <div class="container-fluid">
+                            <div class="card p-5">
+                                <h1>Wait until Your Pharmacy is Approved</h1>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </x-guest-layout>
-             
+            @endif
         </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

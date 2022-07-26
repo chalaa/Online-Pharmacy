@@ -22,11 +22,26 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
 
 Route::middleware(['auth','verified'])->group(function () {
+    // user
     Route::get('/home', [UserController::class, 'index'])->name('user-home');
+    Route::get('/user/edit', [UserController::class, 'edit'])->name('user-edit');
+    Route::put('/user/{id}', [UserController::class, 'update'])->name('user-update');
+
+    // Drug
+
     Route::get('/drugs/create', [DrugController::class, 'create'])->name('create-drug');
     Route::get('/drugs', [DrugController::class, 'index'])->name('drug');
-    Route::get('user/edit', [UserController::class, 'edit'])->name('user-edit');
-    Route::put('user/update', [UserController::class, 'update'])->name('user-update');
+
+    /// Pharmacy
+    Route::get('/pharmacies', [PharmacyController::class, 'approvedPharmacy'])->name('approved-pharmacy');
+    Route::get('/pharmacies/new', [PharmacyController::class, 'registerdPharmacy'])->name('registered-pharmacy');
+    Route::get('/pharmacies/deleted',[PharmacyController::class, 'deletedPharmacy'])->name('deleted-pharmacy');
+    Route::get('/pharmacies/{id}', [PharmacyController::class, 'pharmacyDetail'])->name('pharmacy-detail');
     Route::post('/pharmacy/store', [PharmacyController::class, 'store'])->name('pharmacy-store');
+    Route::put('/pharmacy/{id}', [PharmacyController::class, 'approvePharmacy'])->name('pharmacy-approve');
+    Route::delete('pharmacy/{id}', [PharmacyController::class, 'deletePharmacy'])->name('pharmacy-delete');
+
+
+
 });
 require __DIR__.'/auth.php';

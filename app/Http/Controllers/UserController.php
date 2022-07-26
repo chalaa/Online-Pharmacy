@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        return view('home');
+        return view('home',['user'=>User::all(),'deletedUser'=>User::onlyTrashed()->get()]);
     }
 
     /**
@@ -73,7 +73,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request,  $id)
     {
         //
         $request->validate([
@@ -81,6 +81,7 @@ class UserController extends Controller
             'email' => [ 'string', 'email', 'max:255',],
             'password' => ['confirmed',],
         ]);
+        $user =  User::find($id);
         $user->update([
             'username' => $request->username,
             'email' => $request->email,
