@@ -87,7 +87,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        return redirect()->route('user-home');
+        return redirect()->route('user-home')->with('success', 'User Account updated successfully');;
     }
 
     /**

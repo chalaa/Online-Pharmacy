@@ -78,6 +78,7 @@ class PharmacyController extends Controller
     public function edit($id)
     {
         //
+        return view('pharmacy.edit',['pharmacy'=>Pharmacy::find($id)]);
     }
 
     
@@ -91,6 +92,20 @@ class PharmacyController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'pharmacy_name' => 'required|string|max:255',
+            'pharmacy_address' => 'required|string|max:255',
+            'phone_number' => 'required|string',
+        ]);
+        $pharmacy=Pharmacy::find($id);
+        $pharmacy->update(
+            [
+                'pharmacy_name' => $request->pharmacy_name,
+                'pharmacy_address' => $request->pharmacy_address,
+                'pharmacy_phone_number' => $request->phone_number,
+            ]
+            );
+        return redirect()->route('user-home')->with('success', 'Pharmacy Information updated successfully');
     }
 
     /**

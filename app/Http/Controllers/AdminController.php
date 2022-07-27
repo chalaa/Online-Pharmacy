@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -24,6 +26,7 @@ class AdminController extends Controller
     public function create()
     {
         //
+        return view('admin.create-admin');
     }
 
     /**
@@ -35,6 +38,23 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'username' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+
+        User::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'is_admin' => true,
+            'is_pharmacy' => false,
+            'is_customer' => false,
+            'is_deleted' => false,
+            'is_approved' => true,
+        ]);
+        return redirect()->route('user-home')->with('success', 'Admin created successfully');
     }
 
     /**

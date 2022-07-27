@@ -38,20 +38,7 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
-        if($request->role === "admin"){
-            $user = User::create([
-                'username' => $request->username,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'is_admin' => true,
-                'is_pharmacy' => false,
-                'is_customer' => false,
-                'is_deleted' => false,
-                'is_approved' => true,
-            ]);
-        }
-        elseif($request->role === "pharmacy"){
+        if($request->role === "pharmacy"){
             $user = User::create([
                 'username' => $request->username,
                 'email' => $request->email,

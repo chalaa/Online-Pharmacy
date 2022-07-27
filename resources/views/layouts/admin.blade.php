@@ -23,11 +23,13 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Scripts -->
+        <script src="//unpkg.com/alpinejs" defer></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
         <div class="wrapper">
             <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 ">
+                <x-flash-message/>
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pl-5 ml-5">
                     <div class="flex justify-between h-16 pl-5 ml-5">
@@ -164,7 +166,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('create-admin') }}" class="nav-link">
                                 <i class=" fas fa-edit"></i>
                                 <p>
                                     Add Admin

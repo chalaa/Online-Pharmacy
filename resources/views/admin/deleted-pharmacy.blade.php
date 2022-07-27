@@ -20,7 +20,6 @@
                                             <th>Username</th>
                                             <th>Phone</th>
                                             <th>Email</th>
-                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -33,13 +32,6 @@
                                             <td>{{ $pharmacy->username }}</td>
                                             <td>{{ $pharmacy->pharmacy->pharmacy_phone_number }}</td>
                                             <td>{{ $pharmacy->email }}</td>
-                                            <td>
-                                                <form method="POST" action=" {{ route('pharmacy-delete', $pharmacy->id) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm bg-danger btn-danger">Delete</button>
-                                                </form>
-                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
