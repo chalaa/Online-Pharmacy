@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -42,9 +43,15 @@ class AdminController extends Controller
             'username' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'middle_name' => 'required|string|max:255',
+            'age'=>'required|integer',
+            'sex'=>'required|string',
+            'phone_number'=>'required|string|max:255|unique:admins'
         ]);
 
-        User::create([
+        $id=User::create([
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -53,6 +60,15 @@ class AdminController extends Controller
             'is_customer' => false,
             'is_deleted' => false,
             'is_approved' => true,
+        ])->id;
+        Admin::create([
+            'user_id' => $id,
+            'first_name' => $request->first_name,
+            'middle_name' => $request->middle_name,
+            'last_name' => $request->last_name,
+            'age' => $request->age,
+            'sex'=>$request->sex,
+            'phone_number'=>$request->phone_number
         ]);
         return redirect()->route('user-home')->with('success', 'Admin created successfully');
     }

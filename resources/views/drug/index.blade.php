@@ -20,11 +20,25 @@
                                             <th>Strength</th>
                                             <th>Price</th>
                                             <th>Quantity</th>
-                                            <th>Available</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach($drugs as $drug)
+                                        <tr>
+                                            <td>{{$drug->id}}</td>
+                                            <td>{{$drug->drug_name}}</td>
+                                            <td>{{$drug->drug_manufacture_date}}</td>
+                                            <td>{{$drug->drug_expiry_date}}</td>
+                                            <td>{{$drug->drug_form}}</td>
+                                            <td>{{$drug->drug_dosage}}</td>
+                                            <td>{{$drug->drug_price}}</td>
+                                            <td>{{$drug->drug_quantity}}</td>
+                                            <td>
+                                                <a href="" class="btn btn-primary btn-sm">view Detail</a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

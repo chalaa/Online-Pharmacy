@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Rules\Password;
+use App\Models\Drug;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 
@@ -19,7 +21,12 @@ class UserController extends Controller
     public function index()
     {
         //
-        return view('home',['user'=>User::all(),'deletedUser'=>User::onlyTrashed()->get()]);
+        $pharmacy_id = Auth::user()->id;
+        return view('home',[
+            'user'=>User::all(),
+            'deletedUser'=>User::onlyTrashed()->get(),
+            'drugs'=>Drug::all()->where('pharmacy_id',$pharmacy_id),
+        ]);
     }
 
     /**

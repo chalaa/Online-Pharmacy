@@ -16,13 +16,54 @@
                         <input type="text" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                          name="username" class="form-control" value= "{{old('username')}}" required>
                     </div>
-        
-                    <!-- Email Address -->
-                    <div class="mt-4">
+                     <!-- Email Address -->
+                     <div class="mt-4">
                         <x-label for="email" :value="__('Email')" />
 
                         <input type="email" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                          name="email" class="form-control" value= "{{old('email')}}" required>
+                    </div>
+                       {{-- First name --}}
+                    <div class="mt-4">
+                        <x-label for="first_name" :value="__('First Name')" />
+        
+                        <input type="text" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                         name="first_name" class="form-control" value= "{{old('first_name')}}" required>
+                    </div>
+                    {{-- Middle Name --}}
+                    <div class="mt-4">
+                        <x-label for="middle_name" :value="__('Middle Name')" />
+        
+                        <input type="text" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                         name="middle_name" class="form-control" value= "{{old('middle_name')}}" required>
+                    </div>
+                    {{-- Last Name --}}
+                    <div class="mt-4">
+                        <x-label for="last_name" :value="__('Middle Name')" />
+        
+                        <input type="text" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                         name="last_name" class="form-control" value= "{{old('last_name')}}" required>
+                    </div>
+                    {{-- Age --}}
+                    <div class="mt-4">
+                        <x-label for="age" :value="__('Age')" />
+        
+                        <input type="number" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                         name="age" class="form-control" value= "{{old('age')}}" required>
+                    </div>
+
+                    <div class="mt-4">
+                        <x-label for="sex" :value="__('Sex')" />
+        
+                        <input type="text" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                         name="sex" class="form-control" value= "{{old('sex')}}" required>
+                    </div>
+
+                    <div class="mt-4">
+                        <x-label for="phone_number" :value="__('Phone Number')" />
+        
+                        <input type="text" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                         name="phone_number" class="form-control" value= "{{old('phone_number')}}" required>
                     </div>
                     
                     <!-- Password -->

@@ -37,6 +37,7 @@ Route::middleware(['auth','verified'])->group(function () {
 
     Route::get('/drugs/create', [DrugController::class, 'create'])->name('create-drug');
     Route::get('/drugs', [DrugController::class, 'index'])->name('drug');
+    Route::post('/drug',[DrugController::class, 'store'])->name('store-drug');
 
     /// Pharmacy
     Route::get('/pharmacies', [PharmacyController::class, 'approvedPharmacy'])->name('approved-pharmacy');
