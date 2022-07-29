@@ -35,7 +35,7 @@
                                             <td>{{$drug->drug_price}}</td>
                                             <td>{{$drug->drug_quantity}}</td>
                                             <td>
-                                                <a href="" class="btn btn-primary btn-sm">view Detail</a>
+                                                <a href="{{ route('show-drug', $drug->id) }}" class="btn btn-primary btn-sm">view Detail</a>
                                             </td>
                                         </tr>
                                         @endforeach

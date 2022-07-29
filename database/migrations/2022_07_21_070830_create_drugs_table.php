@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('pharmacy_id')->unsigned();
             $table->string('drug_name');
-            $table->string('drug_description');
+            $table->longText('drug_description');
             $table->string('drug_price');
             $table->string('drug_quantity');
             $table->string('drug_image');

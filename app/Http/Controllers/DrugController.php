@@ -46,13 +46,13 @@ class DrugController extends Controller
         //
         $request->validate([
             'drug_name'=>'required|string',
-            'manfacture_date'=>'required|date',
-            'expire_date'=>'required|date',
+            'manfacture_date'=>'required|date|before:yesterday',
+            'expire_date'=>'required|date|after:tomorrow',
             'strength'=>'required|string',
             'form'=>'required|string',
             'price'=>'required|numeric ',
             'quantity'=>'required|integer',
-            'drug_manufacturer'=>'required|string',
+            'drug_manufacturer'=>'required|string|',
             'description'=>'required|string',
             'image'=>'required|image',
         ]);
@@ -62,7 +62,7 @@ class DrugController extends Controller
             'drug_name' => $request->drug_name,
             'drug_price' => $request->price,
             'drug_quantity' => $request->quantity,
-            'drug_image' => $request->file('image')->store('public/drug_images'),
+            'drug_image' => $request->file('image')->store('drug_images','public'),
             'drug_form' => $request->form,
             'drug_dosage' => $request->strength,
             'drug_manufacturer' => $request->drug_manufacturer,
@@ -82,6 +82,7 @@ class DrugController extends Controller
     public function show($id)
     {
         //
+        return view('drug.show',['drug'=>Drug::find($id)]);
     }
 
     /**
@@ -93,6 +94,7 @@ class DrugController extends Controller
     public function edit($id)
     {
         //
+        return view('drug.edit',['drug'=>Drug::find($id)]);
     }
 
     /**
@@ -105,6 +107,46 @@ class DrugController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'drug_name'=>'required|string',
+            'manfacture_date'=>'required|date|before:yesterday',
+            'expire_date'=>'required|date|after:tomorrow',
+            'dosage'=>'required|string',
+            'form'=>'required|string',
+            'price'=>'required|numeric ',
+            'quantity'=>'required|integer',
+            'drug_manufacturer'=>'required|string',
+            'description'=>'required|string',
+            'image'=>'image',
+        ]);
+        $drug = Drug::find($id);
+        if($request->hasFile('image')){        
+        $drug->update([
+            'drug_name' => $request->drug_name,
+            'drug_price' => $request->price,
+            'drug_quantity' => $request->quantity,
+            'drug_image' => $request->file('image')->store('drug_images','public'),
+            'drug_form' => $request->form,
+            'drug_dosage' => $request->dosage,
+            'drug_manufacturer' => $request->drug_manufacturer,
+            'drug_expiry_date' => $request->expire_date,
+            'drug_manufacture_date' => $request->manfacture_date,
+            'drug_description' => $request->description,
+        ]);
+        }else{
+            $drug->update([
+                'drug_name' => $request->drug_name,
+                'drug_price' => $request->price,
+                'drug_quantity' => $request->quantity,
+                'drug_form' => $request->form,
+                'drug_dosage' => $request->dosage,
+                'drug_manufacturer' => $request->drug_manufacturer,
+                'drug_expiry_date' => $request->expire_date,
+                'drug_manufacture_date' => $request->manfacture_date,
+                'drug_description' => $request->description,
+            ]);
+        }
+        return redirect()->route('show-drug',$id)->with('success', 'Drug Updated successfully');
     }
 
     /**

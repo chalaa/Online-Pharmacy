@@ -38,6 +38,9 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/drugs/create', [DrugController::class, 'create'])->name('create-drug');
     Route::get('/drugs', [DrugController::class, 'index'])->name('drug');
     Route::post('/drug',[DrugController::class, 'store'])->name('store-drug');
+    Route::put('/drug/{id}', [DrugController::class, 'update'])->name('update-drug');
+    Route::get('/drug/{id}/edit', [DrugController::class, 'edit'])->name('edit-drug');
+    Route::get('/drug/{id}', [DrugController::class, 'show'])->name('show-drug');
 
     /// Pharmacy
     Route::get('/pharmacies', [PharmacyController::class, 'approvedPharmacy'])->name('approved-pharmacy');
