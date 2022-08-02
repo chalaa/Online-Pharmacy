@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger('customer_id')->unsigned();
             $table->bigInteger('pharmacy_id')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('customer_id')
             ->references('id')
             ->on('customers')

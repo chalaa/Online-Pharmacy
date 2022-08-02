@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Drug;
 use App\Models\User;
+use App\Models\Pharmacy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +19,9 @@ class DrugController extends Controller
     {
         //
         $id= Auth::user()->id;
-        return view('drug.index',['drugs'=>Drug::all()->where('pharmacy_id',$id)]);
+        $pharmacy = Pharmacy::where('user_id',$id)->first();
+        $pharmacy_id = $pharmacy->id;
+        return view('drug.index',['drugs'=>Drug::all()->where('pharmacy_id',$pharmacy_id)]);
     }
 
     /**
@@ -57,8 +60,10 @@ class DrugController extends Controller
             'image'=>'required|image',
         ]);
         $id = Auth::user()->id;
+        $pharmacy = Pharmacy::where('user_id',$id)->first();
+        $pharmacy_id = $pharmacy->id;
         Drug::create([
-            'pharmacy_id' => $id,
+            'pharmacy_id' => $pharmacy_id,
             'drug_name' => $request->drug_name,
             'drug_price' => $request->price,
             'drug_quantity' => $request->quantity,
@@ -158,5 +163,8 @@ class DrugController extends Controller
     public function destroy($id)
     {
         //
+        // $drug = Drug::find($id);
+        // $drug->delete();
+        // return redirect()->route('user-home')->with('success', 'Drug Deleted successfully');
     }
 }

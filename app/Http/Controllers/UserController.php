@@ -21,11 +21,14 @@ class UserController extends Controller
     public function index()
     {
         //
-        $pharmacy_id = Auth::user()->id;
+        $pharmacy_id = Auth::user()->pharmacy->id;
+        $now = date('Y-m-d');  
         return view('home',[
             'user'=>User::all(),
             'deletedUser'=>User::onlyTrashed()->get(),
             'drugs'=>Drug::all()->where('pharmacy_id',$pharmacy_id),
+            'active_drugs'=> Drug::where('pharmacy_id',$pharmacy_id)->where('drug_expiry_date','>',$now)->get(),
+            'expired_drugs' => Drug::where('pharmacy_id',$pharmacy_id)->where('drug_expiry_date','<',$now)->get()
         ]);
     }
 

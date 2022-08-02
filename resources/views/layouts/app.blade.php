@@ -81,8 +81,149 @@
   </head>
 
   <body>
-    {{ $slot }}
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-logo">
+          <a href="{{ route('home') }}" class="js-logo-clone">Online-Pharma</a>
+        </div>
+        <div class="site-mobile-menu-close ">
+          <span class="ion-ios-close js-menu-toggle">
+            </span>
+        </div>
+        </div>
+        <div class="site-mobile-menu-body">
+          <ul class="site-nav-wrap">
+            <li class="active">
+              <a href="{{route ('home')}}">Home</a>
+            </li>
+            <li>
+              <a href="{{ route ('shop') }}">Store</a>
+            </li>
+            <li class="has-children">
+              <a href="#">Filter</a>
+              <ul class="dropdown">
+                <li class=>
+                  <a href="#">Tablet</a>
+                </li>
+                <li class=>
+                  <a href="#">Drop</a>
+                </li>
+                <li class=>
+                  <a href="#">Syrup</a>
+                </li>
+                <li class=>
+                  <a href="#">Injection</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+    </div>
+    <div class="site-wrap">
+      <div class="site-navbar py-2">
+        <div class="search-wrap">
+          <div class="container">
+            <a href="#" class="search-close js-search-close"
+              ><span class="icon-close2"></span
+            ></a>
+            <form action="#" method="post">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search keyword and hit enter..."
+              />
+            </form>
+          </div>
+        </div>
 
+        <div class="container">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="logo">
+              <div class="site-logo">
+                <a href="{{ route('home') }}" class="js-logo-clone">Online-Pharma</a>
+              </div>
+            </div>
+            <div class="main-nav d-none d-lg-block">
+              <nav
+                class="site-navigation text-right text-md-center"
+                role="navigation"
+              >
+                <ul class="site-menu js-clone-nav d-none d-lg-block">
+                  <li class="active"><a href="{{ route('home') }}">Home</a></li>
+                  <li><a href="{{ route('shop') }}">Store</a></li>
+                  @php 
+                  $name = Route::currentRouteName();
+                  @endphp
+                  <li class="has-children">
+                    <a href="#">Filter</a>
+                    <ul class="dropdown">
+                      <li class=>
+                        <a href="{{route($name)}}/?drug={{'tablet'}}">Tablet</a>
+                      </li>
+                      <li class=>
+                        <a href="{{route($name)}}/?drug={{'drop'}}">Drop</a>
+                      </li>
+                      <li class=>
+                        <a href="{{route($name)}}/?drug={{'syrup'}}">Syrup</a>
+                      </li>
+                      <li class=>
+                        <a href="{{route($name)}}/?drug={{'injection'}}">Injection</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div class="icons">
+              <span
+                class="icons-btn icon-search d-inline-block js-search-open"
+                style="cursor: pointer; color: black"
+              ></span>
+              <span
+                class="icons-btn d-inline-block js-search-open"
+                style="cursor: pointer"
+                >Search Drug</span
+              >
+            </div>
+            <div class="main-nav d-none d-lg-block">
+              <nav
+                class="site-navigation text-right text-md-center"
+                role="navigation"
+              >
+                <ul class="site-menu js-clone-nav d-none d-lg-block">
+                  <li>
+                    <a href="{{ route ('login')}}"
+                      ><span class="icon-arrow-right icon-fixed-width"></span
+                      >LOGIN</a
+                    >
+                  </li>
+                  <li>
+                    <a href="{{ route ('register')}}"
+                      ><span class="icon-registered icon-fixed-widthh"></span>
+                      Register</a
+                    >
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {{ $slot }}
+
+      <footer class="site-footer">
+        <div class="text-center">
+          <p>
+            Copyright &copy;
+            <script>
+              document.write(new Date().getFullYear());
+            </script>
+            All rights reserved
+          </p>
+        </div>
+  </footer>
+    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js"></script>

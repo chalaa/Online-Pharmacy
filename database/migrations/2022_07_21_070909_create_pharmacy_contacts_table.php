@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('Instagram');
             $table->string('Twitter');
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('pharmacy_id')
             ->references('id')
             ->on('pharmacies')

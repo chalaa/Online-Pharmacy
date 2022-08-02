@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('pharmacy_address');
             $table->string('pharmacy_phone_number')->unique();
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('user_id')
             ->references('id')
             ->on('users')

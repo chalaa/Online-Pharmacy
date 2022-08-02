@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('sex');
             $table->string('phone_number')->unique();
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('user_id')
             ->references('id')
             ->on('users')

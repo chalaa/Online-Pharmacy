@@ -29,7 +29,9 @@
     
                   <div class="info-box-content">
                     <span class="info-box-text">Expired Drugs</span>
-                    <span class="info-box-number"><span>
+                    <span class="info-box-number">
+                      {{$expired_drugs->count()}}
+                    <span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -46,7 +48,9 @@
     
                   <div class="info-box-content">
                     <span class="info-box-text">Active Drugs </span>
-                    <span class="info-box-number"></span>
+                    <span class="info-box-number">
+                      {{$active_drugs->count()}}
+                    </span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>

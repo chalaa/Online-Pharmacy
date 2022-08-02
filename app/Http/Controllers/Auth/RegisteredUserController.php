@@ -62,6 +62,18 @@ class RegisteredUserController extends Controller
                 'is_approved' => true,
             ]);
         }
+        elseif($request->role === "admin"){
+            $user = User::create([
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'is_admin' => true,
+                'is_pharmacy' => false,
+                'is_customer' => false,
+                'is_deleted' => false,
+                'is_approved' => true,
+            ]);
+        }
         else{
             $user = User::create([
                 'username' => $request->username,

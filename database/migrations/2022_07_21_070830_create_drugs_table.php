@@ -27,6 +27,7 @@ return new class extends Migration
             $table->dateTime('drug_expiry_date');
             $table->dateTime('drug_manufacture_date');
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('pharmacy_id')
             ->references('id')
             ->on('pharmacies')

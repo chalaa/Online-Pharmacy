@@ -48,7 +48,12 @@
                 </div>
             </div>
             <div class="diplay-flex pr-5">
-                <a href="{{ route('edit-drug',$drug->id) }}" class='btn btn-primary float-right btn-md'>Edit</a>
+                <form action="#" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class='btn btn-danger bg-danger float-right btn-md mr-2'>Delete</button>
+                </form>
+                <a href="{{ route('edit-drug',$drug->id) }}" class='btn btn-primary float-right btn-md mr-3'>Edit</a>
             </div>
         </section>
     </div>

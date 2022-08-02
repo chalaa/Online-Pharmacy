@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Admin;
 use App\Models\Pharmacy;
-use App\Models\PharmacyContact;
 use Illuminate\Http\Request;
+use App\Models\PharmacyContact;
 use Illuminate\Support\Facades\Auth;
 
 class PharmacyController extends Controller
@@ -175,15 +176,15 @@ class PharmacyController extends Controller
     public function approvePharmacy ($id)
     {
         //
-        $admin_id=Auth::user()->id;
+        $userId=Auth::user()->id;
         $user = User::find($id);
+        $admin_id = Admin::where('user_id', $userId)->first()->id;
         $pharmacy = Pharmacy::where('user_id', $id)->first();
         $user->update([
             'is_approved' => 1,
         ]);
-        $pharmacy->update([
-            'admin_id' => $admin_id
-        ]);
+        $pharmacy->admin_id = $admin_id;
+        $pharmacy->save();
         return redirect()->route('registered-pharmacy')->with('success', 'Pharmacy approved successfully');
     }
 
