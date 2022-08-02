@@ -21,14 +21,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($pharmacies as $pharmacy)
+                                        @foreach ($users as $pharmacy)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $pharmacy->id }}</td>
                                                 <td>{{ $pharmacy->username }}</td>
                                                 <td>{{ $pharmacy->email }}</td>
                                                 <td>
-                                                    <a href="{{ route('pharmacy-detail', $pharmacy->id) }}" class="btn btn-sm btn-info">View</a>
+                                                    <a href="{{ route('pharmacy-detail',$pharmacy->id)}}" class="btn btn-sm btn-info">View</a>
                                                 </td>
                                             </tr>
                                         @endforeach

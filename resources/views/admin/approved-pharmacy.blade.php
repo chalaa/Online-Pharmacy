@@ -26,7 +26,7 @@
                                     <tbody>
                                         @foreach ($pharmacies as $pharmacy )
                                             <tr>
-                                                <td>{{ $pharmacy->pharmacy->id }}</td>
+                                                <td>{{ $pharmacy->pharmacy->id}}</td>
                                                 <td>{{ $pharmacy->id }}</td>
                                                 <td>{{ $pharmacy->pharmacy->pharmacy_name }}</td>
                                                 <td>{{ $pharmacy->pharmacy->pharmacy_address }}</td>

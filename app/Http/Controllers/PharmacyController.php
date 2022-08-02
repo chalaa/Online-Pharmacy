@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Pharmacy;
+use App\Models\PharmacyContact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,17 +44,29 @@ class PharmacyController extends Controller
             'pharmacy_name' => 'required|string|max:255',
             'pharmacy_address' => 'required|string|max:255',
             'phone_number' => 'required|string',
+            'telegram' => 'required|string', //telegram channel
+            'whatsapp' => 'required|string', //whatsapp number
+            'facebook' => 'required|string', //facebook page
+            'instagram' => 'required|string', //instagram page
+            'twitter' => 'required|string', //twitter page 
         ]);
         
         //creating pharmacy
-        Pharmacy::create([
+        $id=Pharmacy::create([
             'pharmacy_name' => $request->pharmacy_name,
             'pharmacy_address' => $request->pharmacy_address,
             'pharmacy_phone_number' => $request->phone_number,
             'user_id' => $user_id,
+        ])->id;
+        PharmacyContact::create([
+            'pharmacy_id' => $id,
+            'telegram' => $request->telegram,
+            'whatsapp' => $request->whatsapp,
+            'facebook' => $request->facebook,
+            'instagram' => $request->instagram,
+            'twitter' => $request->twitter,
         ]);
-
-        return redirect()->route('user-home')->with('success', 'Pharmacy created successfully');
+        return redirect()->route('user-home')->with('success', 'Pharmacy Information created successfully');
         
     }
     
@@ -96,13 +109,28 @@ class PharmacyController extends Controller
             'pharmacy_name' => 'required|string|max:255',
             'pharmacy_address' => 'required|string|max:255',
             'phone_number' => 'required|string',
+            'telegram' => 'required|string', //telegram channel
+            'whatsapp' => 'required|string', //whatsapp number
+            'facebook' => 'required|string', //facebook page
+            'instagram' => 'required|string', //instagram page
+            'twitter' => 'required|string', //twitter page
         ]);
         $pharmacy=Pharmacy::find($id);
+        $pharmacy_contact = PharmacyContact::where('pharmacy_id',$id)->first();
         $pharmacy->update(
             [
                 'pharmacy_name' => $request->pharmacy_name,
                 'pharmacy_address' => $request->pharmacy_address,
                 'pharmacy_phone_number' => $request->phone_number,
+            ]
+            );
+        $pharmacy_contact->update(
+            [
+                'telegram' => $request->telegram,
+                'whatsapp' => $request->whatsapp,
+                'facebook' => $request->facebook,
+                'instagram' => $request->instagram,
+                'twitter' => $request->twitter,
             ]
             );
         return redirect()->route('user-home')->with('success', 'Pharmacy Information updated successfully');
@@ -123,7 +151,7 @@ class PharmacyController extends Controller
     {
         //
         return view('admin.registered-pharmacy',[
-            'pharmacies' => User::all()->where('is_pharmacy', 1)->where('is_approved', 0),
+            'users' => User::all()->where('is_pharmacy', 1)->where('is_approved', 0),
         ]);
     }
     public function approvedPharmacy()
@@ -137,17 +165,25 @@ class PharmacyController extends Controller
     public function pharmacyDetail($id)
     {
         //
-        return view('admin.pharmacy-detail',[
-            'pharmacy' => User::find($id)
+        return view('admin.pharmacy-detail', [
+            'user' => User::find($id),
+            'pharmacy' => Pharmacy::where('user_id', $id)->first()
         ]);
     }
+    
 
     public function approvePharmacy ($id)
     {
         //
-        $pharmacy = User::find($id);
-        $pharmacy->is_approved = 1;
-        $pharmacy->save();
+        $admin_id=Auth::user()->id;
+        $user = User::find($id);
+        $pharmacy = Pharmacy::where('user_id', $id)->first();
+        $user->update([
+            'is_approved' => 1,
+        ]);
+        $pharmacy->update([
+            'admin_id' => $admin_id
+        ]);
         return redirect()->route('registered-pharmacy')->with('success', 'Pharmacy approved successfully');
     }
 
