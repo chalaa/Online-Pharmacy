@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/single-shop/{id}', [HomeController::class, 'singleShop'])->name('single-shop');
 Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
 
 Route::middleware(['auth','verified'])->group(function () {

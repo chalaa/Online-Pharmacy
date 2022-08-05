@@ -163,8 +163,8 @@ class DrugController extends Controller
     public function destroy($id)
     {
         //
-        // $drug = Drug::find($id);
-        // $drug->delete();
-        // return redirect()->route('user-home')->with('success', 'Drug Deleted successfully');
+        $drug = Drug::find($id);
+        $drug->delete();
+        return redirect()->route('user-home')->with('success', 'Drug Deleted successfully');
     }
 }

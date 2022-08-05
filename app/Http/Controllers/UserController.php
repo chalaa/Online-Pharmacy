@@ -21,6 +21,7 @@ class UserController extends Controller
     public function index()
     {
         //
+        if(Auth::user()->pharmacy){
         $pharmacy_id = Auth::user()->pharmacy->id;
         $now = date('Y-m-d');  
         return view('home',[
@@ -29,7 +30,19 @@ class UserController extends Controller
             'drugs'=>Drug::all()->where('pharmacy_id',$pharmacy_id),
             'active_drugs'=> Drug::where('pharmacy_id',$pharmacy_id)->where('drug_expiry_date','>',$now)->get(),
             'expired_drugs' => Drug::where('pharmacy_id',$pharmacy_id)->where('drug_expiry_date','<',$now)->get()
-        ]);
+        ]);}
+        elseif(Auth::user()->admin){
+            return view('home',[
+                'user'=>User::all(),
+                'deletedUser'=>User::onlyTrashed()->get(),
+            ]);
+        }
+        else{
+            return view('home',[
+                'user'=>User::all(),
+                'deletedUser'=>User::onlyTrashed()->get()
+            ]);
+        }
     }
 
     /**

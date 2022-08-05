@@ -32,6 +32,13 @@ class Drug extends Model
 
     protected $guarded = [];
 
+    public function scopeFilter($query, array $filters)
+    {
+       if($filters['drug'] ?? false){
+          $query->where('drug_form','like','%'.request('drug').'%'); 
+       }
+    }
+
     public function pharmacy()
     {
         return $this->belongsTo(Pharmacy::class, 'pharmacy_id', 'id');

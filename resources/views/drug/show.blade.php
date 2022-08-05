@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="diplay-flex pr-5">
-                <form action="#" method="POST">
+                <form action="{{ route('destroy-drug',$drug->id ) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class='btn btn-danger bg-danger float-right btn-md mr-2'>Delete</button>

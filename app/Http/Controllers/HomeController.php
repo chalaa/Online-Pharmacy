@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Drug;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,7 +15,10 @@ class HomeController extends Controller
     public function index()
     {
         //
-        return view('index');
+        $now = date('Y-m-d');  
+        return view('index',
+        ['drugs'=>Drug::latest()->take(6)->where('drug_expiry_date','>',$now)
+        ->filter(request(['drug']))->get()]);
     }
 
     /**
@@ -25,7 +29,14 @@ class HomeController extends Controller
     public function shop()
     {
         //
-        return view('public.shop');
+        return view('public.shop',
+        ['drugs'=>Drug::latest()->where('drug_expiry_date','>',date('Y-m-d'))->filter(request(['drug']))->get()]);
+    }
+
+    public function singleShop($id){
+        //
+        return view('public.single_shop',
+        ['drug'=>Drug::find($id)]);
     }
 
     /**
