@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DrugController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PharmacyController;
@@ -55,7 +56,9 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::put('/pharmacy/{id}', [PharmacyController::class, 'approvePharmacy'])->name('pharmacy-approve');
     Route::delete('pharmacy/{id}', [PharmacyController::class, 'deletePharmacy'])->name('pharmacy-delete');
 
+    //
 
-
+    Route::get('/customer/shop',[CustomerController::class, 'shop'])->name('customer-shop');
+    Route::get('/customer/shop/{id}',[CustomerController::class,'singleShop'])->name('customer-singleShop');
 });
 require __DIR__.'/auth.php';

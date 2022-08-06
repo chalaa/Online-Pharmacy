@@ -37,6 +37,9 @@ class UserController extends Controller
                 'deletedUser'=>User::onlyTrashed()->get(),
             ]);
         }
+        elseif(Auth::user()->is_customer){
+            return view('home',['drugs'=>Drug::latest()->where('drug_expiry_date','>',date('Y-m-d'))->filter(request(['drug','search']))->get()]);
+        }
         else{
             return view('home',[
                 'user'=>User::all(),

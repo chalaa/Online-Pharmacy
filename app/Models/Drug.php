@@ -37,6 +37,15 @@ class Drug extends Model
        if($filters['drug'] ?? false){
           $query->where('drug_form','like','%'.request('drug').'%'); 
        }
+       if($filters['search'] ?? false){
+          $query->where('drug_name','like','%'.request('search').'%')
+          ->orWhere('drug_description','like','%'.request('search').'%')
+          ->orWhere('drug_manufacturer','like','%'.request('search').'%'); 
+       }
+       if($filters['min_price'] ?? false){
+          $query->where('drug_price','>=',request('min_price'))
+          ->where('drug_price','<=',request('max_price')); 
+       }
     }
 
     public function pharmacy()

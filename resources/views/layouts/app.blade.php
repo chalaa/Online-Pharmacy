@@ -66,43 +66,51 @@
             <li>
               <a href="{{ route ('shop') }}">Store</a>
             </li>
+            @php 
+            $name = Route::currentRouteName();
+            $currentRoute = Request::url();
+            @endphp
+            @if($currentRoute == route('shop') || $currentRoute == route('home')  )
             <li class="has-children">
-              <a href="#">Filter</a>
+              <a href="">Filter</a>
               <ul class="dropdown">
                 <li class=>
-                  <a href="#">Tablet</a>
+                  <a href="{{route($name)}}/?drug={{'tablet'}}">Tablet</a>
                 </li>
                 <li class=>
-                  <a href="#">Drop</a>
+                  <a href="{{route($name)}}/?drug={{'drop'}}">Drop</a>
                 </li>
                 <li class=>
-                  <a href="#">Syrup</a>
+                  <a href="{{route($name)}}/?drug={{'syrup'}}">Syrup</a>
                 </li>
                 <li class=>
-                  <a href="#">Injection</a>
+                  <a href="{{route($name)}}/?drug={{'injection'}}">Injection</a>
                 </li>
               </ul>
             </li>
+            @endif
           </ul>
         </div>
     </div>
     <div class="site-wrap">
       <div class="site-navbar py-2">
+        @if($currentRoute == route('shop') || $currentRoute == route('home')  )
         <div class="search-wrap">
           <div class="container">
-            <a href="#" class="search-close js-search-close"
+            <a href="" class="search-close js-search-close"
               ><span class="icon-close2"></span
             ></a>
-            <form action="#" method="post">
+            <form action="{{route($name)}}" method="Get">
               <input
                 type="text"
+                name="search"
                 class="form-control"
                 placeholder="Search keyword and hit enter..."
               />
             </form>
           </div>
         </div>
-
+        @endif
         <div class="container">
           <div class="d-flex align-items-center justify-content-between">
             <div class="logo">
@@ -124,7 +132,7 @@
                   @endphp
                   @if($currentRoute == route('shop') || $currentRoute == route('home')  )
                   <li class="has-children">
-                    <a href="#">Filter</a>
+                    <a href="">Filter</a>
                     <ul class="dropdown">
                       <li class=>
                         <a href="{{route($name)}}/?drug={{'tablet'}}">Tablet</a>

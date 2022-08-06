@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Drug;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -21,6 +22,7 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         //
@@ -57,6 +59,21 @@ class CustomerController extends Controller
     public function edit($id)
     {
         //
+    }
+
+
+    public function shop(){
+        //
+        return view('customer.shop',
+        ['drugs'=>Drug::latest()->where('drug_expiry_date','>',date('Y-m-d'))->filter(request(['drug','search','min_price']))->get()]
+    );
+    }
+
+    public function singleShop($id){
+        //
+        return view('customer.single-shop',
+        ['drug'=>Drug::find($id)]
+    );
     }
 
     /**

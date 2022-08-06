@@ -30,7 +30,7 @@ class HomeController extends Controller
     {
         //
         return view('public.shop',
-        ['drugs'=>Drug::latest()->where('drug_expiry_date','>',date('Y-m-d'))->filter(request(['drug']))->get()]);
+        ['drugs'=>Drug::latest()->where('drug_expiry_date','>',date('Y-m-d'))->filter(request(['drug','search','min_price']))->get()]);
     }
 
     public function singleShop($id){

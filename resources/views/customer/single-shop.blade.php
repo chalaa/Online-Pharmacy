@@ -1,10 +1,10 @@
-<x-app-layout>
+<x-customer-layout>
     <div class="bg-light py-3">
         <div class="container">
           <div class="row">
             <div class="col-md-12 mb-0">
-              <a href="{{route('home')}}">Home</a> <span class="mx-2 mb-0">/</span>
-              <a href="{{route('shop')}}">Store</a> <span class="mx-2 mb-0">/</span>
+              <a href="{{route('user-home')}}">Home</a> <span class="mx-2 mb-0">/</span>
+              <a href="{{route('customer-shop')}}">Store</a> <span class="mx-2 mb-0">/</span>
               <strong class="text-black">{{$drug->drug_name}}</strong>
             </div>
           </div>
@@ -60,7 +60,7 @@
               </div>
               <p>
                 <a
-                  href="{{route('register')}}"
+                  href="#"
                   class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary"
                   >Add To Cart</a
                 >
@@ -199,4 +199,4 @@
           </div>
         </div>
     </div>
-</x-app-layout>
+</x-customer-layout>
