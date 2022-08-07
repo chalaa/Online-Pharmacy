@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Drug;
+use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -26,6 +28,7 @@ class CustomerController extends Controller
     public function create()
     {
         //
+        return view('customer.create');
     }
 
     /**
@@ -37,6 +40,27 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'firstName' => 'required|string|max:255',
+            'middleName' => 'required|string|max:255',
+            'lastName' => 'required|string|max:255',
+            'age' => 'required|integer',
+            'sex' => 'required|string',
+            'customer_address' => 'required|string',
+            'phone_number' => 'required|string|unique:customers'
+        ]);
+        $user_id = Auth::user()->id;
+        Customer::create([
+            'user_id' => $user_id,
+            'first_name' => $request->firstName,
+            'middle_name' => $request->middleName,
+            'last_name' => $request->lastName,
+            'age' => $request->age,
+            'phone_number' => $request->phone_number,
+            'customer_address' => $request->customer_address,
+            'sex' => $request->sex,
+        ]);
+       return redirect()->route('user-home')->with('success','Information Added successfully');
     }
 
     /**
@@ -59,13 +83,17 @@ class CustomerController extends Controller
     public function edit($id)
     {
         //
+        return view('customer.edit',[
+            'customer'=>Customer::find($id)
+        ]);
+
     }
 
 
     public function shop(){
         //
         return view('customer.shop',
-        ['drugs'=>Drug::latest()->where('drug_expiry_date','>',date('Y-m-d'))->filter(request(['drug','search','min_price']))->get()]
+        ['drugs'=>Drug::latest()->where('drug_expiry_date','>',date('Y-m-d'))->filter(request(['drug','search','min_price']))->paginate(6)]
     );
     }
 
@@ -86,6 +114,28 @@ class CustomerController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'firstName' => 'required|string|max:255',
+            'middleName' => 'required|string|max:255',
+            'lastName' => 'required|string|max:255',
+            'age' => 'required|integer',
+            'sex' => 'required|string',
+            'customer_address' => 'required|string',
+            'phone_number' => 'required|string'
+        ]);
+        $customer = Customer::find($id);
+        $customer->update(
+            [
+                'first_name' => $request->firstName,
+                'middle_name' => $request->middleName,
+                'last_name' => $request->lastName,
+                'age' => $request->age,
+                'phone_number' => $request->phone_number,
+                'customer_address' => $request->customer_address,
+                'sex' => $request->sex,
+            ]
+        );
+        return redirect()->route('user-home')->with('success','Information Updated Successfully');
     }
 
     /**

@@ -59,6 +59,10 @@ Route::middleware(['auth','verified'])->group(function () {
     //
 
     Route::get('/customer/shop',[CustomerController::class, 'shop'])->name('customer-shop');
+    Route::get('/customer/create',[CustomerController::class, 'create'])->name('customer-create');
+    Route::get('/customer/{id}/edit',[CustomerController::class, 'edit'])->name('customer-edit');
     Route::get('/customer/shop/{id}',[CustomerController::class,'singleShop'])->name('customer-singleShop');
+    Route::post('/customer',[CustomerController::class,'store'])->name('customer-store');
+    Route::put('/customer/{id}',[CustomerController::class,'update'])->name('customer-update');
 });
 require __DIR__.'/auth.php';

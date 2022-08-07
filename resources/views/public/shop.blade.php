@@ -33,6 +33,7 @@
               </div>
             </form>
           </div> 
+          <div class="col-lg-6"></div>
         </div>
         <div class="row">
           @foreach ($drugs as $drug)
@@ -45,6 +46,9 @@
             </div> 
           @endforeach
         </div>
+      </div>
+      <div class="mt-3 ml-5 mr-5">
+        {{$drugs->links()}}
       </div>
   </div>
 </x-app-layout>

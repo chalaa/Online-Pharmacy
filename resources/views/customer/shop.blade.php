@@ -34,11 +34,12 @@
                   </div>
                 </div>
               </form>
+            </div>
           </div>
-
-          <div class="row">
+          <div class="col-lg-6"></div>
+          <div class="row ml-2">
             @foreach ($drugs as $drug)
-              <div class="col-sm-6 col-lg-4 text-center item mb-4">
+              <div class="col-sm-12 col-lg-4 item mb-4">
                 <a href="{{route('customer-singleShop',$drug->id)}}">
                   <img src="{{'/storage/'.$drug->drug_image}}" alt="Image"/>
                 </a>
@@ -47,6 +48,10 @@
               </div> 
             @endforeach
             
+          </div>
         </div>
-</div>
+        <div class="mt-3 ml-5 mr-5">
+          {{$drugs->links()}}
+        </div>
+      </div>
 </x-customer-layout>

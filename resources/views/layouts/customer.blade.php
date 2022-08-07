@@ -50,6 +50,7 @@
 
   <body>
     <div class="site-mobile-menu">
+      <x-flash-message/>
       <div class="site-mobile-menu-header">
         <div class="site-mobile-menu-logo">
           <a href="{{ route('home') }}" class="js-logo-clone">Online-Pharma</a>
@@ -94,6 +95,7 @@
         </div>
     </div>
     <div class="site-wrap">
+      <x-flash-message/>
       <div class="site-navbar py-2">
         @if($currentRoute == route('customer-shop') || $currentRoute == route('user-home')  )
         <div class="search-wrap">
@@ -196,11 +198,18 @@
                               {{ __('Log Out') }}
                           </x-dropdown-link>
                       </form>
-                      <x-dropdown-link :href="route('shop')"
-                                  onclick="event.preventDefault();
-                                              this.closest('form').submit();">
+                      <x-dropdown-link :href="route('user-edit')">
                               {{ __('Update Account') }}
-                          </x-dropdown-link>
+                      </x-dropdown-link>
+                      @if (!(Auth::user()->customer))
+                      <x-dropdown-link :href="route('customer-create')">
+                           {{ __('Add Information') }}
+                      </x-dropdown-link>
+                      @else
+                      <x-dropdown-link :href="route('customer-edit',Auth::user()->customer->id)">
+                            {{ __('Update Information') }}
+                      </x-dropdown-link>
+                      @endif
                   </x-slot>
               </x-dropdown>
           </div>
