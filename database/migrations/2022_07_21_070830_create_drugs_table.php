@@ -18,8 +18,8 @@ return new class extends Migration
             $table->bigInteger('pharmacy_id')->unsigned();
             $table->string('drug_name');
             $table->longText('drug_description');
-            $table->string('drug_price');
-            $table->string('drug_quantity');
+            $table->double('drug_price');
+            $table->integer('drug_quantity');
             $table->string('drug_image');
             $table->string('drug_form');
             $table->string('drug_dosage');

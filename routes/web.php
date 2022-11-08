@@ -56,7 +56,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::put('/pharmacy/{id}', [PharmacyController::class, 'approvePharmacy'])->name('pharmacy-approve');
     Route::delete('pharmacy/{id}', [PharmacyController::class, 'deletePharmacy'])->name('pharmacy-delete');
 
-    //
+    //customer
 
     Route::get('/customer/shop',[CustomerController::class, 'shop'])->name('customer-shop');
     Route::get('/customer/create',[CustomerController::class, 'create'])->name('customer-create');

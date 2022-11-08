@@ -24,7 +24,7 @@ class Customer extends Model
             'age',
             'phone_number',
             'sex',
-            'cutomer_address'
+            'customer_address'
          ];
 
     protected $guarded =[];

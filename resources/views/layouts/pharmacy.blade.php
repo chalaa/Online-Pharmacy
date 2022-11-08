@@ -37,7 +37,7 @@
                         <div class="flex pl-5 ml-5">
                             <!-- Logo -->
                             <div class="shrink-0 flex ml-5 pl-5">
-                                <a href="{{ route('home') }}">
+                                <a href="{{ route('user-home') }}">
                                     <x-application-logo class="block h-10 w-auto fill-current text-gray-600 align-center" />
                                 </a>
                             </div>
